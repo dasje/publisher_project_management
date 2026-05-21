@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <row
+          ><h4 class="display-4">{{task.title}}</h4>
+          <a class="btn btn-primary btn-lg" href="#" role="button"
+            >Edit title</a
+          ></row
+        >
+        <p class="lead">{{task.description}}</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button"
+          >Edit description</a
+        >
+        <hr class="my-4" />
+        <p>Date Created: {{task.date_created}}</p>
+        {% if task.assignee == None %}
+        <p>Assigned to: No one</p>
+        {% else %}
+        <p>Assigned to: {{task.assignee}}</p>
+        {% endif %}
+        <button
+          type="button"
+          hx-get="{% url 'responsibility-modal' task.id %}"
+          hx-swap="beforeend"
+          hx-target="body"
+          class="btn btn-primary btn-lg"
+        >
+          Assign responsibility
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

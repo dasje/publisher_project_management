@@ -1,0 +1,156 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container bg-light">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-500">
+      <div class="col-md-12 col-xl-10">
+        <div class="card mask-custom">
+          <div class="card-body p-4">
+            <div class="row">
+              <h4>Project name</h4>
+              <h5 class="border-0 align-left">{{ project.name }}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card mask-custom">
+          <div class="card-body p-4">
+            <div class="row">
+              <h4>Project description</h4>
+              <p class="border-0 align-left">{{ project.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-10 align-content-left">
+        <div class="card mask-custom">
+          <div class="card-body p-4">
+            <div class="row">
+              <h4>Details</h4>
+              <div class="row">
+                <p class="border-0 align-left">ISBN: {{ project.isbn }}</p>
+                <p class="border-0 align-left">Title: {{ project.title }}</p>
+                <p class="border-0 align-left">
+                  Print Number: {{ project.print_number }}
+                </p>
+                <p class="border-0 align-left">
+                  Author Surname: {{ project.author_surname }}
+                </p>
+                <p class="border-0 align-left">
+                  Author First Names: {{ project.author_first_names }}
+                </p>
+                <p class="border-0 align-left">
+                  Series Name: {{ project.series_name }}
+                </p>
+                <p class="border-0 align-left">Fonds: {{ project.fonds }}</p>
+                <p class="border-0 align-left">Owner: {{ project.owner }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <div class="row">
+              <h4>Planning</h4>
+              <p class="border-0 align-left">
+                Files due: {{ project.files_due }}
+              </p>
+              <p class="border-0 align-left">
+                CB delivery date: {{ project.CB_delivery_due }}
+              </p>
+              <p class="border-0 align-left">
+                Publishing date: {{ project.publishing_date }}
+              </p>
+            </div>
+          </div>
+          <div class="card mask-custom">
+            <div class="card-body p-4">
+              <div class="row">
+                <h4>Specifications</h4>
+                <p class="border-0 align-left">
+                  Binding: {{ project.binding }}
+                </p>
+                <p class="border-0 align-left">
+                  Reading ribbon: {{ project.reading_ribbon }}
+                </p>
+                <p class="border-0 align-left">
+                  Cover Type: {{ project.cover_type }}
+                </p>
+                <p class="border-0 align-left">
+                  Dust Jacket: {{ project.dust_jacket }}
+                </p>
+                <p class="border-0 align-left">
+                  Printer: {{ project.printer }}
+                </p>
+                <p class="border-0 align-left">Format: {{ project.format }}</p>
+                <p class="border-0 align-left">
+                  Paper Type: {{ project.paper_type }}
+                </p>
+                <p class="border-0 align-left">
+                  Print run: {{ project.print_run }}
+                </p>
+
+                <p class="border-0 align-left">
+                  Endpaper: {{ project.endpaper }}
+                </p>
+                <p class="border-0 align-left">
+                  Cover material: {{ project.cover_material }}
+                </p>
+                <p class="border-0 align-left">
+                  Cover decoration: {{ project.cover_decoration }}
+                </p>
+                <p class="border-0 align-left">Print: {{ project.print }}</p>
+                <p class="border-0 align-left">
+                  Head and tail bands: {{ project.head_and_tail_bands }}
+                </p>
+
+                <p class="border-0 align-left">Extras: {{ project.extras }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-xl-10 align-content-right">
+          <div class="card mask-custom">
+            <div class="card-body p-4">
+              <div class="row">
+                <h4>Project tasks</h4>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Task</th>
+                      <th>Assignee</th>
+                      <th>Due date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  {% for task in project_tasks %}
+                  <tbody>
+                    <tr>
+                      <td>{{ task.title }}</td>
+                      <td>{{ task.assignee }}</td>
+                      <td>{{ task.due_date }}</td>
+                      <td>
+                        <a
+                          href="{% url 'task-detail' task.id %}"
+                          class="btn btn-primary"
+                          >View Details</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                  {% empty %}
+                  <p class="color-black">
+                    No tasks available for this project.
+                  </p>
+                  {% endfor %}
+                </table>
+                <a
+                  class="nav-link btn btn-primary"
+                  href="{% url 'create-task' %}"
+                  ><button class="btn btn-primary">Create Task</button></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock content %}
+  </div>
+</div>

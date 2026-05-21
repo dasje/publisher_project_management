@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+<h1>My Projects</h1>
+<p>{{project.id}}</p>
+<p>{{project.title|upper}}</p>
+<div class="container">
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>ISBN</th>
+          <th>Files Due</th>
+          <th>CB Delivery Due</th>
+          <th>Publishing Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for project in projects %}
+        <tr>
+          <td>{{ project.title }}</td>
+          <td>{{ project.description }}</td>
+          <td>{{ project.isbn }}</td>
+          <td>{{ project.files_due }}</td>
+          <td>{{ project.CB_delivery_due }}</td>
+          <td>{{ project.publishing_date }}</td>
+          <td>
+            <a
+              href="{% url 'project-detail' project.id %}"
+              class="btn btn-primary"
+              >More Details</a
+            >
+          </td>
+        </tr>
+        {% empty %}
+        <p class="color-black">No projects available.</p>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary" href="{% url 'create-project' %}"
+            >Create Project</a
+          >
+        </li>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
