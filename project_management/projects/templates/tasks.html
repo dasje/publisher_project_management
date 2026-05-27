@@ -1,18 +1,21 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load render_table from django_tables2 %}
 <section class="">
-<div class="container-fluid">
-  <div class="row d-flex justify-content-center align-items-center h-100">
-     <div class=" col-xl-12">
+  {% block content %}
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-12">
         <div class="card mask-custom">
-           <div class="card-body p-4 text-white">
-              <div class="text-center pt-3 pb-2">
-                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
-                    alt="Check" width="60">
-                 <h2 class="my-4">Task List</h2>
-              </div>
-              <table class="table  ">
+          <div class="card-body p-4 text-white">
+            <div class="text-center pt-3 pb-2">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                alt="Check"
+                width="60"
+              />
+              <h2 class="my-4">Task List</h2>
+            </div>
+            {% render_table table %}
+            <!-- <table class="table  ">
                  <thead>
                     <tr>
                        <th scope="col">Assignee</th>
@@ -47,7 +50,11 @@
                           <h6 class="mb-0"><span class="badge bg-success">{{task.project}}</span></h6>
                        </td>
                        <td class="border-0 align-middle">
-                          <a href="" data-mdb-toggle="tooltip" title="Done"><i
+                          <a 
+                            hx-get="{% url 'task-status-modal' task.id %}?next={{ request.path|urlencode }}"
+                            hx-swap="beforeend"
+                            hx-target="body"
+                            class=""><i
                              class="fas fa-check fa-lg text-success me-3">Mark Complete / Update</i></a>
                        </td>
                     </tr>
@@ -71,6 +78,11 @@
   </ul>
   {% empty %}
   <p class="color-black">No other tasks.</p>
-  {% endfor%}
-</div>
-{% endblock content %}
+  {% endfor%} -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+</section>

@@ -1,0 +1,24 @@
+Milestones
+- Manuscript received
+- - Decide translator
+- - Send to translator
+- - Receive from translator
+- Make ready for press
+- - Assign
+- - Send to editor
+- - Receive from editor
+- Typesetting
+- - Decide corrector
+- - Send to typesetter
+- - Receive from typesetter
+- - Check corrections
+- Cover
+- - Begin cover design
+- - Assign designer
+
+Data
+- translator
+- translator tarif
+- word count original
+- word count translation
+- honorarium redactie?

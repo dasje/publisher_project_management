@@ -5,14 +5,36 @@
       <div class="jumbotron">
         <row
           ><h4 class="display-4">{{task.title}}</h4>
-          <a class="btn btn-primary btn-lg" href="#" role="button"
-            >Edit title</a
-          ></row
+          <button
+            type="button"
+            hx-get="{% url 'task-title-modal' task.id %}"
+            hx-swap="beforeend"
+            hx-target="body"
+            class="btn btn-primary btn-lg"
+          >
+            Edit title
+          </button></row
         >
         <p class="lead">{{task.description}}</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button"
-          >Edit description</a
+        <button
+          type="button"
+          hx-get="{% url 'task-description-modal' task.id %}"
+          hx-swap="beforeend"
+          hx-target="body"
+          class="btn btn-primary btn-lg"
         >
+          Edit description
+        </button>
+        <p class="lead">Status: {{task.status}}</p>
+        <button
+          type="button"
+          hx-get="{% url 'task-status-modal' task.id %}?next={{ request.path|urlencode }}"
+          hx-swap="beforeend"
+          hx-target="body"
+          class="btn btn-primary btn-lg"
+        >
+          Change status
+        </button>
         <hr class="my-4" />
         <p>Date Created: {{task.date_created}}</p>
         {% if task.assignee == None %}

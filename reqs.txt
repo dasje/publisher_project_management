@@ -1,0 +1,14 @@
+Workflow
+- Create product (edition) - done
+- Choose data profile (hardback, paperback...) - done
+- Input data - done
+
+User must be able to update fields.
+User must be able to see projects ordered by due dates and statuses.
+User must be able to save files per edition (for invoices, offertes...)
+User must be able to create tasks and update tasks and assign tasks. Tasks are edition based. User must be able to save files to task. The files are available through a file portal in editions. User must be able to leave comments in tasks.
+Within an edition, the user must be able to generate milestones as tasks (i.e. production milestones).
+Separate from editioons and tasks, user must be able to create milestone templates. This means each department can add their own milestone tasks to the workflow.
+
+Must be able to generate reports from the data.
+Must be able to generate PO's from the data.

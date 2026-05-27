@@ -7,7 +7,9 @@
           <div class="card-body p-4">
             <div class="row">
               <h4>Project name</h4>
-              <h5 class="border-0 align-left">{{ project.name }}</h5>
+              <h5 class="border-0 align-left">
+                {{ project.title }} ({{ project.print_number }})
+              </h5>
             </div>
           </div>
         </div>
@@ -16,6 +18,15 @@
             <div class="row">
               <h4>Project description</h4>
               <p class="border-0 align-left">{{ project.description }}</p>
+              <button
+                type="button"
+                hx-get="{% url 'project-description-modal' project.id %}"
+                hx-swap="beforeend"
+                hx-target="body"
+                class="btn btn-primary btn-lg"
+              >
+                Edit description
+              </button>
             </div>
           </div>
         </div>
@@ -42,12 +53,39 @@
                 </p>
                 <p class="border-0 align-left">Fonds: {{ project.fonds }}</p>
                 <p class="border-0 align-left">Owner: {{ project.owner }}</p>
+                <p class="border-0 align-left">
+                  Offer Name: {{ project.offer_name }}
+                </p>
+                <button
+                  type="button"
+                  hx-get="{% url 'project-details-modal' project.id %}"
+                  hx-swap="beforeend"
+                  hx-target="body"
+                  class="btn btn-primary btn-lg"
+                >
+                  Edit details
+                </button>
               </div>
             </div>
           </div>
           <div class="card-body p-4">
             <div class="row">
               <h4>Planning</h4>
+              <p class="border-0 align-left">
+                Manuscript due: {{ project.manuscript_due }}
+              </p>
+              <p class="border-0 align-left">
+                Translation due due: {{ project.translation_due }}
+              </p>
+              <p class="border-0 align-left">
+                Pre press due: {{ project.pre_press_due }}
+              </p>
+              <p class="border-0 align-left">
+                Print ready text due: {{ project.print_ready_manuscript_due }}
+              </p>
+              <p class="border-0 align-left">
+                Cover and artwork due: {{ project.cover_and_artwork_due }}
+              </p>
               <p class="border-0 align-left">
                 Files due: {{ project.files_due }}
               </p>
@@ -58,52 +96,17 @@
                 Publishing date: {{ project.publishing_date }}
               </p>
             </div>
+            <button
+              type="button"
+              hx-get="{% url 'project-planning-modal' project.id %}"
+              hx-swap="beforeend"
+              hx-target="body"
+              class="btn btn-primary btn-lg"
+            >
+              Edit planning
+            </button>
           </div>
-          <div class="card mask-custom">
-            <div class="card-body p-4">
-              <div class="row">
-                <h4>Specifications</h4>
-                <p class="border-0 align-left">
-                  Binding: {{ project.binding }}
-                </p>
-                <p class="border-0 align-left">
-                  Reading ribbon: {{ project.reading_ribbon }}
-                </p>
-                <p class="border-0 align-left">
-                  Cover Type: {{ project.cover_type }}
-                </p>
-                <p class="border-0 align-left">
-                  Dust Jacket: {{ project.dust_jacket }}
-                </p>
-                <p class="border-0 align-left">
-                  Printer: {{ project.printer }}
-                </p>
-                <p class="border-0 align-left">Format: {{ project.format }}</p>
-                <p class="border-0 align-left">
-                  Paper Type: {{ project.paper_type }}
-                </p>
-                <p class="border-0 align-left">
-                  Print run: {{ project.print_run }}
-                </p>
-
-                <p class="border-0 align-left">
-                  Endpaper: {{ project.endpaper }}
-                </p>
-                <p class="border-0 align-left">
-                  Cover material: {{ project.cover_material }}
-                </p>
-                <p class="border-0 align-left">
-                  Cover decoration: {{ project.cover_decoration }}
-                </p>
-                <p class="border-0 align-left">Print: {{ project.print }}</p>
-                <p class="border-0 align-left">
-                  Head and tail bands: {{ project.head_and_tail_bands }}
-                </p>
-
-                <p class="border-0 align-left">Extras: {{ project.extras }}</p>
-              </div>
-            </div>
-          </div>
+          {% include 'project-detail-specification.html' with project=project %}
         </div>
         <div class="col-md-12 col-xl-10 align-content-right">
           <div class="card mask-custom">

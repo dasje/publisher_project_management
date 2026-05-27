@@ -1,0 +1,108 @@
+{% block content %}
+<div class="card mask-custom">
+  <div class="card-body p-4">
+    <div class="row">
+      {% if project.project_type == 'paperback' %}
+      <h4>Paperback Specifications</h4>
+      <p class="border-0 align-left">Binding: {{ project.binding }}</p>
+      <p class="border-0 align-left">Format: {{ project.format }}</p>
+      <p class="border-0 align-left">Paper Type: {{ project.paper_type }}</p>
+      <p class="border-0 align-left">Print run: {{ project.print_run }}</p>
+      <p class="border-0 align-left">Printer: {{ project.printer }}</p>
+      <p class="border-0 align-left">
+        Cover material: {{ project.cover_material }}
+      </p>
+      <p class="border-0 align-left">
+        Cover decoration: {{ project.cover_decoration }}
+      </p>
+      <p class="border-0 align-left">Print: {{ project.print }}</p>
+      <p class="border-0 align-left">Dust Jacket: {{ project.dust_jacket }}</p>
+      <p class="border-0 align-left">Extras: {{ project.extras }}</p>
+      {% endif %} {% if project.project_type == 'hardback' %}
+      <h4>Hardback Specifications</h4>
+      <p class="border-0 align-left">Binding: {{ project.binding }}</p>
+      <p class="border-0 align-left">Format: {{ project.format }}</p>
+      <p class="border-0 align-left">Paper Type: {{ project.paper_type }}</p>
+      <p class="border-0 align-left">Print run: {{ project.print_run }}</p>
+      <p class="border-0 align-left">Printer: {{ project.printer }}</p>
+      <p class="border-0 align-left">Endpaper: {{ project.endpaper }}</p>
+      <p class="border-0 align-left">
+        Cover material: {{ project.cover_material }}
+      </p>
+      <p class="border-0 align-left">
+        Cover decoration: {{ project.cover_decoration }}
+      </p>
+      <p class="border-0 align-left">Print: {{ project.print }}</p>
+      <p class="border-0 align-left">
+        Head and tail bands: {{ project.head_and_tail_bands }}
+      </p>
+      <p class="border-0 align-left">
+        Reading ribbon: {{ project.reading_ribbon }}
+      </p>
+      <p class="border-0 align-left">Dust Jacket: {{ project.dust_jacket }}</p>
+      <p class="border-0 align-left">Extras: {{ project.extras }}</p>
+      {% endif %} {% if project.project_type == 'boxed' %}
+      <p class="border-0 align-left">Print run: {{ project.print_run }}</p>
+      <p class="border-0 align-left">Printer: {{ project.printer }}</p>
+      <p class="border-0 align-left">Extras: {{ project.extras }}</p>
+      <h4>Box Specifications</h4>
+
+      <p class="border-0 align-left">
+        Box dimensions: {{ project.box_dimension }}
+      </p>
+      <p class="border-0 align-left">
+        Box wrapping paper: {{ project.box_wrapping_paper }}
+      </p>
+      <p class="border-0 align-left">
+        Box wrapping finish: {{ project.box_wrapping_finish }}
+      </p>
+      <p class="border-0 align-left">
+        Box lining paper: {{ project.box_lining_paper }}
+      </p>
+      <p class="border-0 align-left">
+        Box lining paper print: {{ project.box_lining_paper_print }}
+      </p>
+      <p class="border-0 align-left">Box hinge: {{ project.box_hinge }}</p>
+      <p class="border-0 align-left">
+        Box thumbholes: {{ project.box_thumbholes }}
+      </p>
+      <p class="border-0 align-left">Box extras: {{ project.box_extras }}</p>
+      <h4>Card Specifications</h4>
+      <p class="border-0 align-left">
+        Cards format: {{ project.cards_format }}
+      </p>
+      <p class="border-0 align-left">
+        Cards paper type: {{ project.cards_paper_type }}
+      </p>
+      <p class="border-0 align-left">Cards print: {{ project.cards_print }}</p>
+      <p class="border-0 align-left">
+        Cards rounded corners: {{ project.cards_rounded_corners }}
+      </p>
+      <p class="border-0 align-left">
+        Cards finishing: {{ project.cards_finishing }}
+      </p>
+      <h4>Book Specifications</h4>
+      <p class="border-0 align-left">Book format: {{ project.book_format }}</p>
+      <p class="border-0 align-left">
+        Book binding: {{ project.book_binding }}
+      </p>
+      <p class="border-0 align-left">
+        Book paper type: {{ project.book_paper_type }}
+      </p>
+      <p class="border-0 align-left">Book print: {{ project.book_print }}</p>
+      <p class="border-0 align-left">
+        Book cover material: {{ project.book_cover_material }}
+      </p>
+      <p class="border-0 align-left">
+        Book cover print: {{ project.book_cover_print }}
+      </p>
+      <p class="border-0 align-left">
+        Book finishing: {{ project.book_finishing }}
+      </p>
+      <p class="border-0 align-left">Book extras: {{ project.book_extras }}</p>
+
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

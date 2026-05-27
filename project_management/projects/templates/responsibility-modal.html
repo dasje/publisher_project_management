@@ -19,12 +19,12 @@
       </div>
       <div class="modal-body">
         <form
-          action="{% url 'responsibility_modal' task.id %}"
+          action="{% url 'responsibility-modal' task.id %}"
           method="post"
           class="form"
         >
           {% csrf_token %} {{ form|crispy }}
-          <button type="submit" class="btn btn-primary">Add Task</button>
+          <button type="submit" class="btn btn-primary">Assign Task</button>
         </form>
       </div>
       <div class="modal-footer">

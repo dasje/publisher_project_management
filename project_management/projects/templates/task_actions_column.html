@@ -1,0 +1,7 @@
+<a
+  hx-get="{% url 'task-status-modal' task.id %}?next={{ request.path|urlencode }}"
+  hx-swap="beforeend"
+  hx-target="body"
+  class=""
+  >Mark Complete / Update</a
+>

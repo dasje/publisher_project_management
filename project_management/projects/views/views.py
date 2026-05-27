@@ -1,39 +1,29 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from .models import Project, Task
-from.forms import TaskForm, AssignForm
+
+from ..tables import TaskListTable
+from ..models import Project, Task, PaperbackProject, HardbackProject, BoxedProject
+from ..forms import ProjectDescriptionForm, TaskDescriptionForm, TaskForm, AssignForm, TaskStatusForm, TaskTitleForm, ProjectDetailsForm, ProjectPlanningForm
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib import messages
 from django.contrib.admin.widgets import AdminDateWidget
 from django_htmx.http import trigger_client_event
+from django_table_sort.table import TableSort
+from django_tables2 import SingleTableView
 
-def responsibility_modal(request, id):
-    task = Task.objects.filter(id=id)
-    form = AssignForm
-    
-    if request.method == "POST":
-        form = AssignForm(request.POST)
-        if form.is_valid():
-            form.save() 
-            return redirect('task-detail', pk=id)
-        
-    context = {'task': task, 'form': form}
-    response = render(request, "responsibility-modal.html", context)
-    return trigger_client_event(response, "modal:show", after="swap")
+from django.shortcuts import get_object_or_404, redirect, render
 
-class TaskListView(ListView):
-   model = Task
-   template_name = 'tasks.html'
+class TaskListView(SingleTableView):
+    model = Task
+    table_class = TaskListTable
+    template_name = 'tasks.html'
 
-# class ProjectListView(ListView):
-#     model = Planning
-#     template_name = 'projects.html'
 
-class ProjectCreateView(CreateView):
-    model = Project
+class PaperbackProjectCreateView(CreateView):
+    model = PaperbackProject
     fields = [
-                "name",
                 "title",
                 "print_number",
                 "isbn",
@@ -42,10 +32,60 @@ class ProjectCreateView(CreateView):
                 "series_name",
                 "fonds",
                 "description",
-                "owner"
+                "owner",
+                "offer_name"
             ]
-    template_name = 'create-project.html'
+    template_name = 'create-paperback-project.html'
     success_url = reverse_lazy('projects')
+    
+    def form_valid(self, form):
+        form.instance.project_type = 'paperback'
+        messages.success(self.request, "The project was created successfully.")
+        return super().form_valid(form)
+
+class HardbackProjectCreateView(CreateView):
+    model = HardbackProject
+    fields = [
+                "title",
+                "print_number",
+                "isbn",
+                "author_surname",
+                "author_first_names",
+                "series_name",
+                "fonds",
+                "description",
+                "owner",
+                "offer_name"
+            ]
+    template_name = 'create-hardback-project.html'
+    success_url = reverse_lazy('projects')
+    
+    def form_valid(self, form):
+        form.instance.project_type = 'hardback'
+        messages.success(self.request, "The project was created successfully.")
+        return super().form_valid(form)
+
+class BoxedProjectCreateView(CreateView):
+    model = BoxedProject
+    fields = [
+                "title",
+                "print_number",
+                "isbn",
+                "author_surname",
+                "author_first_names",
+                "series_name",
+                "fonds",
+                "description",
+                "owner",
+                "offer_name"
+            ]
+    template_name = 'create-boxed-project.html'
+    success_url = reverse_lazy('projects')
+
+    def form_valid(self, form):
+        form.instance.project_type = 'boxed'
+        messages.success(self.request, "The project was created successfully.")
+        return super().form_valid(form)
 
 class ProjectCreatePlanningView(UpdateView):
     model = Project
@@ -99,16 +139,27 @@ class ProjectCreateProductionDetailsView(CreateView):
 def home(request):
     return render(request, 'index.html')
 
+def projectCreateNew(request):
+    return render(request, 'create-project.html')
+
 def projectList(request):
     projects = Project.objects.all()
     # planning = Planning.objects.all()
-    print("projects:", projects.values('name', 'print_number', 'files_due', 'CB_delivery_due', 'publishing_date'))
+    print("projects:", projects.values('title', 'print_number', 'files_due', 'CB_delivery_due', 'publishing_date'))
     context = {'projects':projects}
     return render(request, 'projects.html', context)
 
 
 def projectDetail(request,pk):
     project = get_object_or_404(Project, id=pk)
+    if project.project_type == 'paperback':
+        project = PaperbackProject.objects.get(id=pk)
+    elif project.project_type == 'hardback':
+        project = HardbackProject.objects.get(id=pk)
+    elif project.project_type == 'boxed':
+        project = BoxedProject.objects.get(id=pk)   
+    print(project.__dict__)
+    # project = get_object_or_404(Project, id=pk)
     project_tasks = project.task_set.all()
 
     context = {'project':project,'project_tasks':project_tasks}
@@ -140,12 +191,12 @@ def taskCreate(request):
 def addProject(request):
     if request.method == 'POST':
         data = request.POST
-        name = data.get('name')
-        description = data.get('description')  
-        owner = data.get('owner')
+        # name = data.get('name')
+        # description = data.get('description')  
+        # owner = data.get('owner')
 
         Project.objects.create(
-            name=data.get('name'),
+            title=data.get('title'),
             description=data.get('description'),
             owner=request.user
         )
@@ -174,10 +225,10 @@ def update_project(request, id):
     project = get_object_or_404(Project, id=id)
     if request.method == 'POST':
         data = request.POST
-        name = data.get('name')
+        title = data.get('title')
         description = data.get('description')
 
-        project.name = name
+        project.title = title
         project.description = description
         project.save()  
         return redirect('/')

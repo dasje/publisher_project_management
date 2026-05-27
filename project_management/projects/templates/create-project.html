@@ -1,12 +1,54 @@
-{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container">
   <div class="row my-5">
     <div class="col-md-12">
-      <form action=" " method="post" class="form">
-        {% csrf_token %} {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Add Project</button>
-      </form>
+      <select
+        name="product-type"
+        id="product-type"
+        onchange="
+          changeSelection();
+          changeHref();
+        "
+      >
+        <option value="">--Please choose an option--</option>
+        <option value="paperback">Paperback</option>
+        <option value="hardback">Hardback</option>
+        <option value="boxed">Boxed product</option>
+      </select>
+
+      <a id="select-button" class="nav-link btn btn-primary text-white" href="#"
+        >Select a product type to create a project</a
+      >
     </div>
   </div>
 </div>
+<script>
+  function changeSelection() {
+    document.getElementById("product-type").value == "paperback"
+      ? (document.getElementById("select-button").innerHTML =
+          "Create Paperback Project")
+      : document.getElementById("product-type").value == "hardback"
+        ? (document.getElementById("select-button").innerHTML =
+            "Create Hardback Project")
+        : document.getElementById("product-type").value == "boxed"
+          ? (document.getElementById("select-button").innerHTML =
+              "Create Boxed Project")
+          : (document.getElementById("select-button").innerHTML =
+              "Select a product type to create a project");
+  }
+</script>
+<script>
+  function changeHref() {
+    document.getElementById("product-type").value == "paperback"
+      ? (document.getElementById("select-button").href =
+          "{% url 'create-paperback-project' %}")
+      : document.getElementById("product-type").value == "hardback"
+        ? (document.getElementById("select-button").href =
+            "{% url 'create-hardback-project' %}")
+        : document.getElementById("product-type").value == "boxed"
+          ? (document.getElementById("select-button").href =
+              "{% url 'create-boxed-project' %}")
+          : (document.getElementById("select-button").href = "#");
+  }
+</script>
 {% endblock %}
